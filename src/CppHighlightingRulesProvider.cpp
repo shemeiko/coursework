@@ -40,7 +40,7 @@ QVector<HighlightingRule> CppHighlightingRulesProvider::createRules() const {
     preprocessorFormat.setForeground(Qt::darkGreen);
     preprocessorFormat.setFontWeight(QFont::Bold);
 
-    for (const QString& kw : langSpec.preproccesor_directives()) {
+    for (const QString& kw : langSpec.preprocessor_directives()) {
         rules.append({
             QRegularExpression(
                 "^\\s*#\\s*" + QRegularExpression::escape(kw) + "\\b"
