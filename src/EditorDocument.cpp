@@ -65,7 +65,7 @@ void EditorDocument::getFileType() {
 
     if (ext == "txt")
         type = Language::PlainText;
-    else if (ext == "cpp")
+    else if (ext == "cpp" || ext == "h" || ext == "hpp")
         type = Language::Cpp;
     else if (ext == "py")
         type = Language::Python;
