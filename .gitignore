@@ -1,0 +1,81 @@
+# .gitignore for CMake/Qt C++ project
+# Ignore build artifacts and generated files
+
+# Build directories
+build/
+bin/
+out/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+# Qt / moc / uic generated files (may appear in build or autos)
+moc_*.cpp
+moc_*.cpp.d
+mocs_compilation.cpp
+*.moc
+ui_*.h
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.db
+*.VC.db
+*.vcxproj*
+*.sln
+
+# Qt Creator and qmake
+*.pro.user
+*.qmake.stash
+
+# Compiled object files and libraries
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.lib
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Debug files
+*.pdb
+*.ilk
+*.idb
+
+# Temporary / backup files
+*~
+*.swp
+*.swo
+*.tmp
+*.bak
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tags, indexes, and generated DBs
+tags
+cscope.*
+compile_commands.json
+
+# Python caches (if any helper scripts exist)
+__pycache__/
+*.py[cod]
+
+# Misc
+*.cover
