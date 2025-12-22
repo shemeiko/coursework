@@ -32,6 +32,7 @@ private slots:
     void onDockContextMenu(const QPoint &point);
     void createNewFile(const QModelIndex &index);
     void createNewFolder(const QModelIndex &index);
+    void activateFile(const QModelIndex &index, bool openIfMissing);
 
 protected:
     void closeEvent(QCloseEvent *event) override;

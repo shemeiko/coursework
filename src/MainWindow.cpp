@@ -64,37 +64,41 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(toggleDock);
     setCentralWidget(tabs);
 
-    connect(tree, &QTreeView::doubleClicked, this,
-        [this](const QModelIndex &index)
-    {
-        if (!index.isValid()) return;
-        if (model->isDir(index)) return;
-
-        QString filepath = model->filePath(index);
-
-        auto *doc = new EditorDocument;
-        doc->loadFromFile(filepath);
-        AddNewTab(doc);
-    });
-
     connect(tree, &QTreeView::clicked, this,
-        [this](const QModelIndex &index)
-    {
-        if (!index.isValid()) return;
-        if (model->isDir(index)) return;
+        [this](const QModelIndex &index) {
+            activateFile(index, false);
+        });
 
-        QString filepath = model->filePath(index);
-
-        for (int i = 0; i < tabs->count(); i++) {
-            EditorDocument *doc = getDocument(i);
-            if (doc && doc->getFilePath() == filepath) {
-                tabs->setCurrentIndex(i);
-                return;
-            }
-        }
-    });
+    connect(tree, &QTreeView::doubleClicked, this,
+        [this](const QModelIndex &index) {
+            activateFile(index, true);
+        });
 
     AddNewTab(nullptr);
+}
+
+void MainWindow::activateFile(const QModelIndex &index, bool openIfMissing)
+{
+    if (!index.isValid() || model->isDir(index))
+        return;
+
+    const QString filepath = model->filePath(index);
+
+    for (int i = 0; i < tabs->count(); ++i) {
+        if (auto *doc = getDocument(i);
+            doc && doc->getFilePath() == filepath)
+        {
+            tabs->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    if (!openIfMissing)
+        return;
+
+    auto *doc = new EditorDocument;
+    doc->loadFromFile(filepath);
+    AddNewTab(doc);
 }
 
 void MainWindow::initMenu() {
