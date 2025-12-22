@@ -88,7 +88,7 @@ QVector<HighlightingRule> PythonHighlightingRulesCreator::createRules() const {
     });
 
     QTextCharFormat builtinFormat;
-    builtinFormat.setForeground(QColor(220, 220, 170));
+    builtinFormat.setForeground(QColor(180, 190, 100));
 
     const QStringList builtins = {
         "print", "len", "range", "enumerate",
