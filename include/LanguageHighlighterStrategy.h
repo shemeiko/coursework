@@ -20,5 +20,5 @@ public:
     {}
 
 protected:
-    void highlightBlock(const QString& text);
+    void highlightBlock(const QString& text) override final;
 };
