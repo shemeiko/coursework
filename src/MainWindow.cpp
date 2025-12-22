@@ -35,10 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     tree = new QTreeView;
     tree->setModel(model);
     tree->setRootIndex(model->index(QDir::currentPath()));
-    tree->setEditTriggers(
-        QAbstractItemView::EditKeyPressed |
-        QAbstractItemView::DoubleClicked
-    );
+    // allow renaming with edit key but disable renaming on double-click
+    tree->setEditTriggers(QAbstractItemView::EditKeyPressed);
     
     tree->hideColumn(1);
     tree->hideColumn(2);
@@ -221,7 +219,8 @@ void MainWindow::AddNewTab(EditorDocument* document) {
         }
 
         document->onModified(editor->toPlainText());
-        updateTabTitle();
+        int idx = tabs->indexOf(editor);
+        if (idx == -1) updateTabTitle(idx);
     });
 }
 
@@ -293,12 +292,10 @@ void MainWindow::saveFileAs() {
     tabs->setTabText(tabs->currentIndex(), QFileInfo(filepath).fileName());
 }
 
-void MainWindow::updateTabTitle() {
-    int idx = tabs->currentIndex();
-    QString tabText = tabs->tabText(idx);
-    if (tabText.startsWith('*')) return;
-
-    tabs->setTabText(idx, tabText.prepend('*'));
+void MainWindow::updateTabTitle(int tabIndex) {
+    QString tabText = tabs->tabText(tabIndex);
+    if (!tabText.startsWith('*'))
+            tabs->setTabText(tabIndex, tabText.prepend('*'));
 }
 
 void MainWindow::closeTab(int index) {

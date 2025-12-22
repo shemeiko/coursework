@@ -25,7 +25,7 @@ private slots:
     void saveFileAs();
     MyEditor* currentEditor() const;
     EditorDocument* getDocument(int idx) const;
-    void updateTabTitle();
+    void updateTabTitle(int tabIndex);
     void onFileRenamed(const QString &dirPath, const QString &oldName, const QString &newName);
     void closeTab(int index);
     void closeCurrentTab();
