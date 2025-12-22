@@ -330,8 +330,14 @@ void MainWindow::closeTab(int index) {
 
     tabs->removeTab(index);
 
-    if (editor) editor->deleteLater();
-    if (doc) delete doc;
+    if (editor) {
+        connect(editor, &QObject::destroyed, this, [doc]() {
+            if (doc) delete doc;
+        });
+        editor->deleteLater();
+    } else {
+        if (doc) delete doc;
+    }
 }
 
 void MainWindow::closeCurrentTab() {
