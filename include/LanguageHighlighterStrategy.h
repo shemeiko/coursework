@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HighlightningRulesProvider.h"
+#include "HighlightingRulesCreator.h"
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 #include <QRegularExpression>
@@ -13,7 +13,7 @@ protected:
 public:
     explicit LanguageHighlighterStrategy(
         QTextDocument* parent,
-        std::unique_ptr<HighlightingRulesProvider> factory
+        std::unique_ptr<HighlightingRulesCreator> factory
     )
         : QSyntaxHighlighter(parent),
           rules(factory->createRules())

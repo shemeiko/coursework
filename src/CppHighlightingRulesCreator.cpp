@@ -1,6 +1,6 @@
-#include "PythonHighlightningRulesProvider.h"
+#include "CppHighlightingRulesCreator.h"
 
-QVector<HighlightingRule> PythonHighlightingRulesProvider::createRules() const {
+QVector<HighlightingRule> CppHighlightingRulesCreator::createRules() const {
     QVector<HighlightingRule> rules;
 
     QTextCharFormat keywordFormat;
@@ -36,44 +36,45 @@ QVector<HighlightingRule> PythonHighlightingRulesProvider::createRules() const {
         });
     }
 
+    QTextCharFormat preprocessorFormat;
+    preprocessorFormat.setForeground(Qt::darkGreen);
+    preprocessorFormat.setFontWeight(QFont::Bold);
+
+    for (const QString& kw : langSpec.preprocessor_directives()) {
+        rules.append({
+            QRegularExpression(
+                "^\\s*#\\s*" + QRegularExpression::escape(kw) + "\\b"
+            ),
+            preprocessorFormat
+        });
+    }
+
     QTextCharFormat commentFormat;
     commentFormat.setForeground(Qt::gray);
     commentFormat.setFontItalic(true);
 
+    // single-line comment
     rules.append({
-        QRegularExpression("#[^\n]*"),
+        QRegularExpression("//[^\n]*"),
         commentFormat
     });
 
-    QTextCharFormat decoratorFormat;
-    decoratorFormat.setForeground(QColor(197, 134, 192));
-    decoratorFormat.setFontWeight(QFont::Bold);
-
+    // multi-line comment
     rules.append({
-        QRegularExpression(R"(@[A-Za-z_]\w*)"),
-        decoratorFormat
+        QRegularExpression("/\\*[\\s\\S]*?\\*/"),
+        commentFormat
     });
 
     QTextCharFormat stringFormat;
     stringFormat.setForeground(QColor(206, 145, 120));
 
-    // single & double quoted
-    rules.append({
-        QRegularExpression(R"('([^'\\]|\\.)*')"),
-        stringFormat
-    });
     rules.append({
         QRegularExpression(R"("([^"\\]|\\.)*")"),
         stringFormat
     });
 
-    // triple-quoted strings (docstrings)
     rules.append({
-        QRegularExpression(R"('''[\s\S]*?''')"),
-        stringFormat
-    });
-    rules.append({
-        QRegularExpression(R"("""[\s\S]*?""")"),
+        QRegularExpression(R"('([^'\\]|\\.)*')"),
         stringFormat
     });
 
@@ -81,28 +82,9 @@ QVector<HighlightingRule> PythonHighlightingRulesProvider::createRules() const {
     numberFormat.setForeground(QColor(181, 206, 168));
 
     rules.append({
-        QRegularExpression(
-            R"(\b\d+(\.\d+)?([eE][+-]?\d+)?j?\b)"
-        ),
+        QRegularExpression(R"(\b\d+(\.\d+)?([eE][+-]?\d+)?\b)"),
         numberFormat
     });
-
-    QTextCharFormat builtinFormat;
-    builtinFormat.setForeground(QColor(220, 220, 170));
-
-    const QStringList builtins = {
-        "print", "len", "range", "enumerate",
-        "map", "filter", "zip",
-        "open", "type", "isinstance",
-        "dir", "help", "id", "abs", "sum"
-    };
-
-    for (const QString& fn : builtins) {
-        rules.append({
-            QRegularExpression("\\b" + fn + "\\b"),
-            builtinFormat
-        });
-    }
 
     return rules;
 }

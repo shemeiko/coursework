@@ -1,11 +1,11 @@
 #pragma once
 
-#include "HighlightningRulesProvider.h"
+#include "HighlightingRulesCreator.h"
 #include "CppSpecFactory.h"
 
-class CppHighlightingRulesProvider : public HighlightingRulesProvider {
+class CppHighlightingRulesCreator : public HighlightingRulesCreator {
 public:
-    explicit CppHighlightingRulesProvider(CppSpecFactory spec)
+    explicit CppHighlightingRulesCreator(CppSpecFactory spec)
         : langSpec(std::move(spec)) {}
     QVector<HighlightingRule> createRules() const override;
 protected:

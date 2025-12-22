@@ -9,8 +9,8 @@ struct HighlightingRule {
     QTextCharFormat format;
 };
 
-class HighlightingRulesProvider {
+class HighlightingRulesCreator {
 public:
-    virtual ~HighlightingRulesProvider() = default;
+    virtual ~HighlightingRulesCreator() = default;
     virtual QVector<HighlightingRule> createRules() const = 0;
 };
