@@ -4,7 +4,6 @@
 #include "LineNumberArea.h"
 
 class LanguageHighlighterStrategy;
-class HighlighterFactory;
 class QKeyEvent;
 
 enum class Language;
@@ -23,7 +22,7 @@ protected:
     // void MyEditor::keyPressEvent(QKeyEvent* event) override;
 
 private:
-    void setHighlighter(std::unique_ptr<HighlighterFactory> factory);
+    void setHighlighter(std::unique_ptr<LanguageHighlighterStrategy> strategy);
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateLineNumberArea(const QRect &rect, int dy);

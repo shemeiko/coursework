@@ -1,8 +1,8 @@
 #include <QSyntaxHighlighter>
 #include "MyEditor.h"
-#include "CppHighlighterFactory.h"
 #include "LanguageHighlighterStrategy.h"
-#include "PythonHighlighterFactory.h"
+#include "Highlighters/CppHighlighterStrategy.h"
+#include "Highlighters/PythonHighlighterStrategy.h"
 #include "Language.h"
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
@@ -28,10 +28,10 @@ MyEditor::MyEditor(QWidget *parent)
 void MyEditor::setLanguage(Language lang) {
     switch (lang) {
         case Language::Cpp:
-            setHighlighter(std::make_unique<CppHighlighterFactory>());
+            setHighlighter(std::make_unique<CppHighlighterStrategy>(document()));
             break;
         case Language::Python:
-            setHighlighter(std::make_unique<PythonHighlighterFactory>());
+            setHighlighter(std::make_unique<PythonHighlighterStrategy>(document()));
             break;
         default:
             setHighlighter(nullptr);
@@ -39,12 +39,8 @@ void MyEditor::setLanguage(Language lang) {
     }
 }
 
-void MyEditor::setHighlighter(std::unique_ptr<HighlighterFactory> factory) {
-    highlighter.reset();
-
-    if (factory) {
-        highlighter = factory->createStrategy(document());
-    }
+void MyEditor::setHighlighter(std::unique_ptr<LanguageHighlighterStrategy> strategy) {
+    highlighter = std::move(strategy);
 }
 
 int MyEditor::lineNumberAreaWidth()
