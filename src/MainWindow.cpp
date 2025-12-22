@@ -224,7 +224,7 @@ void MainWindow::AddNewTab(EditorDocument* document) {
 
         document->onModified(editor->toPlainText());
         int idx = tabs->indexOf(editor);
-        if (idx == -1) updateTabTitle(idx);
+        if (idx != -1) updateTabTitle(idx);
     });
 }
 
@@ -299,7 +299,7 @@ void MainWindow::saveFileAs() {
 void MainWindow::updateTabTitle(int tabIndex) {
     QString tabText = tabs->tabText(tabIndex);
     if (!tabText.startsWith('*'))
-            tabs->setTabText(tabIndex, tabText.prepend('*'));
+        tabs->setTabText(tabIndex, tabText.prepend('*'));
 }
 
 void MainWindow::closeTab(int index) {
