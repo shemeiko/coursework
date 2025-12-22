@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     tree = new QTreeView;
     tree->setModel(model);
     tree->setRootIndex(model->index(QDir::currentPath()));
-    // allow renaming with edit key but disable renaming on double-click
+
     tree->setEditTriggers(QAbstractItemView::EditKeyPressed);
     
     tree->hideColumn(1);
