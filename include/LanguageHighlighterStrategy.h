@@ -5,7 +5,6 @@
 #include <QTextCharFormat>
 #include <QRegularExpression>
 #include <QVector>
-#include <memory>
 
 class LanguageHighlighterStrategy : public QSyntaxHighlighter {
 protected:
