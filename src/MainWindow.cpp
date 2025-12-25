@@ -18,7 +18,6 @@
 #include <QLineEdit>
 #include <QInputDialog>
 #include <QLabel>
-#include <QStatusBar>
 
 MainWindow::MainWindow(QWidget *parent) 
     : QMainWindow(parent)
