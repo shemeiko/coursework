@@ -179,6 +179,8 @@ void MainWindow::initDock() {
 
     dock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    dock->setWindowTitle("Folder Explorer");
 }
 
 MyEditor* MainWindow::currentEditor() const {
@@ -259,7 +261,10 @@ void MainWindow::openFolder() {
         tree->setRootIndex(index);
     }
 
-    if (!dock->isVisible()) dock->show();
+    if (!dock->isVisible()) {
+        dock->show();
+        dock->setWindowTitle("Folder as Workspace");
+    }
 }
 
 void MainWindow::saveFile() {
