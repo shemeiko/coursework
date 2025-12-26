@@ -12,10 +12,10 @@
 MyEditor::MyEditor(QWidget *parent)
     : QPlainTextEdit(parent)
 {
-    setFont(QFont("Consolas", 11));
     setTabStopDistance(24);
 
     lineNumberArea = new LineNumberArea(this);
+    lineNumberArea->setFont(font());
 
     connect(this, &MyEditor::blockCountChanged, this, &MyEditor::updateLineNumberAreaWidth);
     connect(this, &MyEditor::updateRequest, this, &MyEditor::updateLineNumberArea);
