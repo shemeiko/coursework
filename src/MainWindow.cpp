@@ -334,6 +334,10 @@ void MainWindow::closeTab(int index) {
     }
 
     tabs->removeTab(index);
+    
+    if (tabs->count() == 0) {
+        AddNewTab(nullptr);
+    }
 
     if (editor) {
         connect(editor, &QObject::destroyed, this, [doc]() {
