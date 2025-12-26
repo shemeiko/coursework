@@ -179,7 +179,7 @@ void MainWindow::initDock() {
     dock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    dock->setWindowTitle("Folder Explorer");
+    dock->setWindowTitle("File Explorer");
 }
 
 MyEditor* MainWindow::currentEditor() const {
