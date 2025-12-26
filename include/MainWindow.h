@@ -33,6 +33,7 @@ private slots:
     void createNewFile(const QModelIndex &index);
     void createNewFolder(const QModelIndex &index);
     void activateFile(const QModelIndex &index, bool openIfMissing);
+    void setEditorFont();
 
 protected:
     void closeEvent(QCloseEvent *event) override;

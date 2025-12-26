@@ -18,11 +18,14 @@
 #include <QLineEdit>
 #include <QInputDialog>
 #include <QLabel>
+#include <QFontDialog>
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) 
     : QMainWindow(parent)
 {
     setWindowTitle("MyEditor");
+    QApplication::setFont(QFont("Consolas", 11), "QPlainTextEdit");
     resize(900, 400);
     
     initMenu();
@@ -127,6 +130,7 @@ void MainWindow::initMenu() {
     viewMenu->setObjectName("View");
     QAction *wrap = viewMenu->addAction("Word Wrap");
     wrap->setCheckable(true);
+    QAction *font = viewMenu->addAction("Font");
 
     connect(newTab, &QAction::triggered, [=]() { AddNewTab(nullptr); });
     connect(open, &QAction::triggered, this, &MainWindow::openFile);
@@ -158,6 +162,7 @@ void MainWindow::initMenu() {
         }
     });
 
+    connect(font, &QAction::triggered, this, &MainWindow::setEditorFont);
     connect(closeTab, &QAction::triggered, this, &MainWindow::closeCurrentTab);
 }
 
@@ -193,6 +198,25 @@ EditorDocument* MainWindow::getDocument(int idx) const {
     return static_cast<EditorDocument*>(
         widget->property("document").value<void*>()
     );
+}
+
+void MainWindow::setEditorFont() {
+    bool ok;
+
+    const QFont current = QApplication::font("QPlainTextEdit");
+    QFont selectedFont = QFontDialog::getFont(
+        &ok,
+        current,
+        this,
+        "Select Editor Font"
+    );
+
+    if (!ok) return;
+
+    selectedFont.setStyleHint(QFont::Monospace);
+    selectedFont.setFixedPitch(true);
+
+    QApplication::setFont(selectedFont, "QPlainTextEdit");
 }
 
 void MainWindow::AddNewTab(EditorDocument* document) {
