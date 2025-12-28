@@ -4,7 +4,7 @@
 #include "LineNumberArea.h"
 
 class LanguageHighlighterStrategy;
-class QKeyEvent;
+// class QKeyEvent;
 
 enum class Language;
 

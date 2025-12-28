@@ -16,7 +16,7 @@ public:
 
     bool isSaved() const;
 
-    void setText(QString text) { e_text = text; };
+    void setText(const QString& text) { e_text = text; };
     QString text() { return e_text; }
     void changeState(std::unique_ptr<DocumentState> state);
     void onModified(const QString &text);
