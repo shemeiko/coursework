@@ -286,8 +286,9 @@ void MainWindow::openFolder() {
 
     if (!dock->isVisible()) {
         dock->show();
-        dock->setWindowTitle("Folder as Workspace");
     }
+
+    dock->setWindowTitle("Folder as Workspace");
 }
 
 void MainWindow::saveFile() {
