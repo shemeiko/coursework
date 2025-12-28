@@ -3,7 +3,7 @@
 
 class SavedState : public DocumentState {
 public:
-    virtual bool isSaved() const override {
+    bool isSaved() const override {
         return true;
     }
 };
